@@ -26,16 +26,13 @@ def test_dark_theme_by_time_and_user_choice():
     current_time = time(hour=16)
     dark_theme_enabled_by_user = True
 
-    if dark_theme_enabled_by_user is True:
-        is_dark_theme = True
-    elif dark_theme_enabled_by_user is False:
-        is_dark_theme = False
-    elif dark_theme_enabled_by_user is None and (current_time >= time(22, 0) or current_time < time(6, 0)):
-        is_dark_theme = False
+    if dark_theme_enabled_by_user == None:
+        if current_time >= time(22, 00) or current_time < time(6, 00):
+            is_dark_theme = True
+        else:
+            is_dark_theme = False
     else:
-        is_dark_theme = True
-
-    assert is_dark_theme is True
+        is_dark_theme = dark_theme_enabled_by_user
 
 
 def test_find_suitable_user():
@@ -87,7 +84,7 @@ def test_readable_function():
 
 def print_name_and_args_of_func(func, *args):
     func_name = func.__name__.replace('_', ' ').title()
-    args_name = ", ".join([*args])
+    args_name = ", ".join(args)
     print(f"{func_name} [{args_name}]")
     return f"{func_name} [{args_name}]"
 
